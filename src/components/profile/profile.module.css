@@ -1,0 +1,14 @@
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerAvatar {
+  display: flex;
+  flex-direction: column;
+}
+
+.userAvatar {
+  width: 120px;
+  height: 120px;
+}
