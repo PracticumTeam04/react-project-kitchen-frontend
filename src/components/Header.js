@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const LoggedOutView = props => {
+const LoggedOutView = (props) => {
   if (!props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
@@ -30,7 +30,7 @@ const LoggedOutView = props => {
   return null;
 };
 
-const LoggedInView = props => {
+const LoggedInView = (props) => {
   if (props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
@@ -43,21 +43,27 @@ const LoggedInView = props => {
 
         <li className="nav-item">
           <Link to="/editor" className="nav-link">
-            <i className="ion-compose"></i>&nbsp;Новый пост
+            <i className="ion-compose" />
+&nbsp;Новый пост
           </Link>
         </li>
 
         <li className="nav-item">
           <Link to="/settings" className="nav-link">
-            <i className="ion-gear-a"></i>&nbsp;Настройки
+            <i className="ion-gear-a" />
+&nbsp;Настройки
           </Link>
         </li>
 
         <li className="nav-item">
           <Link
             to={`/@${props.currentUser.username}`}
-            className="nav-link">
-            <span>Привет, {props.currentUser.username}</span>
+            className="nav-link"
+          >
+            <span>
+              Привет,
+              {props.currentUser.username}
+            </span>
           </Link>
         </li>
 

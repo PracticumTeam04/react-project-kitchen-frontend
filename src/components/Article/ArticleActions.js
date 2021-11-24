@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import agent from '../../agent';
 import { connect } from 'react-redux';
+import agent from '../../agent';
 import { DELETE_ARTICLE } from '../../constants/actionTypes';
 
-const mapDispatchToProps = dispatch => ({
-  onClickDelete: payload =>
-    dispatch({ type: DELETE_ARTICLE, payload })
+const mapDispatchToProps = (dispatch) => ({
+  onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
 });
 
-const ArticleActions = props => {
-  const article = props.article;
+const ArticleActions = (props) => {
+  const { article } = props;
   const del = () => {
-    props.onClickDelete(agent.Articles.del(article.slug))
+    props.onClickDelete(agent.Articles.del(article.slug));
   };
   if (props.canModify) {
     return (
@@ -20,12 +19,17 @@ const ArticleActions = props => {
 
         <Link
           to={`/editor/${article.slug}`}
-          className="btn btn-outline-secondary btn-sm">
-          <i className="ion-edit"></i> Изменить
+          className="btn btn-outline-secondary btn-sm"
+        >
+          <i className="ion-edit" />
+          {' '}
+          Изменить
         </Link>
 
         <button className="btn btn-outline-danger btn-sm" onClick={del}>
-          <i className="ion-trash-a"></i> Удалить
+          <i className="ion-trash-a" />
+          {' '}
+          Удалить
         </button>
 
       </span>
@@ -33,8 +37,7 @@ const ArticleActions = props => {
   }
 
   return (
-    <span>
-    </span>
+    <span />
   );
 };
 

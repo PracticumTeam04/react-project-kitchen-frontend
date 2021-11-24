@@ -1,32 +1,31 @@
-import agent from "../agent";
-import Header from "./Header";
-import React from "react";
-import { connect } from "react-redux";
-import { APP_LOAD, REDIRECT } from "../constants/actionTypes";
-import { Route, Switch } from "react-router-dom";
-import Article from "../components/Article";
-import Editor from "../components/Editor";
-import Home from "../components/Home";
-import Login from "../components/Login";
-import Profile from "./profile/profile";
-import ProfileFavorites from "../components/ProfileFavorites";
-import Register from "../components/Register";
-import Settings from "../components/Settings";
-import { store } from "../store";
-import { push } from "react-router-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import agent from '../agent';
+import Header from './Header';
+import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
+import Article from './Article';
+import Editor from './Editor';
+import Home from './Home';
+import Login from './Login';
+import Profile from './profile/profile';
+import ProfileFavorites from './ProfileFavorites';
+import Register from './Register';
+import Settings from './Settings';
+import { store } from '../store';
 
-const mapStateToProps = (state) => {
-  return {
-    appLoaded: state.common.appLoaded,
-    appName: state.common.appName,
-    currentUser: state.common.currentUser,
-    redirectTo: state.common.redirectTo,
-  };
-};
+const mapStateToProps = (state) => ({
+  appLoaded: state.common.appLoaded,
+  appName: state.common.appName,
+  currentUser: state.common.currentUser,
+  redirectTo: state.common.redirectTo,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload, token) =>
-    dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
+  onLoad: (payload, token) => dispatch({
+    type: APP_LOAD, payload, token, skipTracking: true,
+  }),
   onRedirect: () => dispatch({ type: REDIRECT }),
 });
 
@@ -40,7 +39,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const token = window.localStorage.getItem("jwt");
+    const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);
     }
@@ -51,7 +50,7 @@ class App extends React.Component {
   render() {
     if (this.props.appLoaded) {
       return (
-        <div style={{ background: "rgba(10, 10, 10, 1)" }}>
+        <div style={{ background: 'rgba(10, 10, 10, 1)' }}>
           <Header
             appName={this.props.appName}
             currentUser={this.props.currentUser}

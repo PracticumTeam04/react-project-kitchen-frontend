@@ -1,17 +1,17 @@
-import ArticleList from "../ArticleList";
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import agent from "../../agent";
-import { connect } from "react-redux";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import agent from '../../agent';
+import ArticleList from '../ArticleList';
 import {
   DEFAULT_AVATAR_URL,
   FOLLOW_USER,
   UNFOLLOW_USER,
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
-} from "../../constants";
-import avatar from "../../images/svg/avatar.svg";
-import profileStyle from "./profile.module.css";
+} from '../../constants';
+import avatar from '../../images/svg/avatar.svg';
+import profileStyle from './profile.module.css';
 
 const EditProfileSettings = (props) => {
   if (props.isUser) {
@@ -20,7 +20,9 @@ const EditProfileSettings = (props) => {
         to="/settings"
         className="btn btn-sm btn-outline-secondary action-btn"
       >
-        <i className="ion-gear-a"></i> Изменить настройки
+        <i className="ion-gear-a" />
+        {' '}
+        Изменить настройки
       </Link>
     );
   }
@@ -32,11 +34,11 @@ const FollowUserButton = (props) => {
     return null;
   }
 
-  let classes = "btn btn-sm action-btn";
+  let classes = 'btn btn-sm action-btn';
   if (props.user.following) {
-    classes += " btn-secondary";
+    classes += ' btn-secondary';
   } else {
-    classes += " btn-outline-secondary";
+    classes += ' btn-outline-secondary';
   }
 
   const handleClick = (ev) => {
@@ -50,9 +52,10 @@ const FollowUserButton = (props) => {
 
   return (
     <button className={classes} onClick={handleClick}>
-      <i className="ion-plus-round"></i>
+      <i className="ion-plus-round" />
       &nbsp;
-      {props.user.following ? "Отписаться от" : "Подписаться на"}{" "}
+      {props.user.following ? 'Отписаться от' : 'Подписаться на'}
+      {' '}
       {props.user.username}
     </button>
   );
@@ -65,17 +68,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFollow: (username) =>
-    dispatch({
-      type: FOLLOW_USER,
-      payload: agent.Profile.follow(username),
-    }),
+  onFollow: (username) => dispatch({
+    type: FOLLOW_USER,
+    payload: agent.Profile.follow(username),
+  }),
   onLoad: (payload) => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
-  onUnfollow: (username) =>
-    dispatch({
-      type: UNFOLLOW_USER,
-      payload: agent.Profile.unfollow(username),
-    }),
+  onUnfollow: (username) => dispatch({
+    type: UNFOLLOW_USER,
+    payload: agent.Profile.unfollow(username),
+  }),
   onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
 });
 
@@ -85,43 +86,39 @@ const Profile = (props) => {
       Promise.all([
         agent.Profile.get(props.match.params.username),
         agent.Articles.byAuthor(props.match.params.username),
-      ])
+      ]),
     );
 
     return () => props.onUnload();
   }, []);
 
-  const renderTabs = () => {
-    return (
-      <ul className="nav nav-pills outline-active">
-        <li className="nav-item">
-          <Link className="nav-link active" to={`/@${props.profile.username}`}>
-            Мои рецензии
-          </Link>
-        </li>
+  const renderTabs = () => (
+    <ul className="nav nav-pills outline-active">
+      <li className="nav-item">
+        <Link className="nav-link active" to={`/@${props.profile.username}`}>
+          Мои рецензии
+        </Link>
+      </li>
 
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`/@${props.profile.username}/favorites`}
-          >
-            Любимые рецензии
-          </Link>
-        </li>
-      </ul>
-    );
-  };
+      <li className="nav-item">
+        <Link
+          className="nav-link"
+          to={`/@${props.profile.username}/favorites`}
+        >
+          Любимые рецензии
+        </Link>
+      </li>
+    </ul>
+  );
 
-  const profile = props.profile;
+  const { profile } = props;
   if (!profile) {
     return null;
   }
 
-  const isUser =
-    props.currentUser && props.profile.username === props.currentUser.username;
+  const isUser = props.currentUser && props.profile.username === props.currentUser.username;
 
-  const imgAvatar =
-    profile.image !== DEFAULT_AVATAR_URL ? profile.image : avatar;
+  const imgAvatar = profile.image !== DEFAULT_AVATAR_URL ? profile.image : avatar;
 
   return (
     <section className={profileStyle.section}>

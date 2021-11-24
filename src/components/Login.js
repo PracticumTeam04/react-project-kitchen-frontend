@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import ListErrors from './ListErrors';
 import React from 'react';
-import agent from '../agent';
 import { connect } from 'react-redux';
+import ListErrors from './ListErrors';
+import agent from '../agent';
 import {
   UPDATE_FIELD_AUTH,
   LOGIN,
@@ -12,12 +12,9 @@ import {
 const mapStateToProps = (state) => ({ ...state.auth });
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeEmail: (value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: (value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
+  onChangeEmail: (value) => dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
+  onChangePassword: (value) => dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
+  onSubmit: (email, password) => dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
   onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED }),
 });
 
@@ -37,45 +34,45 @@ class Login extends React.Component {
   }
 
   render() {
-    const email = this.props.email;
-    const password = this.props.password;
+    const { email } = this.props;
+    const { password } = this.props;
     return (
-      <div className='auth-page'>
-        <div className='container page'>
-          <div className='row'>
-            <div className='col-md-6 offset-md-3 col-xs-12'>
-              <h1 className='text-xs-center'>Вход</h1>
-              <p className='text-xs-center'>
-                <Link to='/register'>Нужна регистрация?</Link>
+      <div className="auth-page">
+        <div className="container page">
+          <div className="row">
+            <div className="col-md-6 offset-md-3 col-xs-12">
+              <h1 className="text-xs-center">Вход</h1>
+              <p className="text-xs-center">
+                <Link to="/register">Нужна регистрация?</Link>
               </p>
 
               <ListErrors errors={this.props.errors} />
 
               <form onSubmit={this.submitForm(email, password)}>
                 <fieldset>
-                  <fieldset className='form-group'>
+                  <fieldset className="form-group">
                     <input
-                      className='form-control form-control-lg'
-                      type='email'
-                      placeholder='Почта'
+                      className="form-control form-control-lg"
+                      type="email"
+                      placeholder="Почта"
                       value={email}
                       onChange={this.changeEmail}
                     />
                   </fieldset>
 
-                  <fieldset className='form-group'>
+                  <fieldset className="form-group">
                     <input
-                      className='form-control form-control-lg'
-                      type='password'
-                      placeholder='Пароль'
+                      className="form-control form-control-lg"
+                      type="password"
+                      placeholder="Пароль"
                       value={password}
                       onChange={this.changePassword}
                     />
                   </fieldset>
 
                   <button
-                    className='btn btn-lg btn-primary pull-xs-right'
-                    type='submit'
+                    className="btn btn-lg btn-primary pull-xs-right"
+                    type="submit"
                     disabled={this.props.inProgress}
                   >
                     Войти
