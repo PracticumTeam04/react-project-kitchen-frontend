@@ -5,7 +5,7 @@ import ListPagination from '../ListPagination';
 import containerStyle from './ArticlesContainer.module.css';
 
 const ArticlesContainer = ({
-  articles, pager, articlesCount, currentPage, onClickTag
+  articles, pager, articlesCount, currentPage, onClickTag,
 }) => {
   if (!articles) {
     return <div className={containerStyle.articlePreview}>Загрузка...</div>;
