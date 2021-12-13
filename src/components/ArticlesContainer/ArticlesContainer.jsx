@@ -5,7 +5,7 @@ import ListPagination from '../ListPagination';
 import containerStyle from './ArticlesContainer.module.css';
 
 const ArticlesContainer = ({
-  articles, pager, articlesCount, currentPage,
+  articles, pager, articlesCount, currentPage, onClickTag
 }) => {
   if (!articles) {
     return <div className={containerStyle.articlePreview}>Загрузка...</div>;
@@ -18,7 +18,11 @@ const ArticlesContainer = ({
   return (
     <div>
       {articles.map((article) => (
-        <ArticleCard article={article} key={article.slug} />
+        <ArticleCard
+          article={article}
+          key={article.slug}
+          onClickTag={onClickTag}
+        />
       ))}
 
       <ListPagination
@@ -44,4 +48,5 @@ ArticlesContainer.propTypes = {
   pager: PropTypes.func,
   articlesCount: PropTypes.number,
   currentPage: PropTypes.number,
+  onClickTag: PropTypes.func.isRequired,
 };

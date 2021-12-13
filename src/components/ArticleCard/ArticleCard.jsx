@@ -10,6 +10,7 @@ import {
 import styles from './ArticleCard.module.css';
 import imagePath from '../../images/article-card-placeholder.jpg';
 import { articlePropTypes } from '../../utils/prop-types';
+import TagsContainer from '../TagsContainer/TagsContainer';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
@@ -25,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
   }),
 });
 
-const ArticleCard = ({ article, ...props }) => {
+const ArticleCard = ({ article, onClickTag, ...props }) => {
   const favoriteButtonClass = article.favorited
     ? FAVORITED_CLASS
     : NOT_FAVORITED_CLASS;
@@ -95,14 +96,10 @@ const ArticleCard = ({ article, ...props }) => {
           <Link to={`/article/${article.slug}`} className={styles.readMore}>
             <span>Читать</span>
           </Link>
-          {/* TODO: replace with tagContainer */}
-          <ul className="tag-list">
-            {article.tagList.map((tag) => (
-              <li className="tag-default tag-pill tag-outline" key={tag}>
-                {tag}
-              </li>
-            ))}
-          </ul>
+          <TagsContainer
+            tags={article.tagList}
+            onClickTag={onClickTag}
+          />
         </div>
       </div>
     </article>
@@ -115,4 +112,5 @@ ArticleCard.propTypes = {
   article: articlePropTypes.isRequired,
   unfavorite: PropTypes.func.isRequired,
   favorite: PropTypes.func.isRequired,
+  onClickTag: PropTypes.func.isRequired,
 };
