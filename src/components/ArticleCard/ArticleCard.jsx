@@ -10,9 +10,7 @@ import {
 import styles from './ArticleCard.module.css';
 import imagePath from '../../images/article-card-placeholder.jpg';
 import { articlePropTypes } from '../../utils/prop-types';
-
-const FAVORITED_CLASS = 'btn btn-sm btn-primary';
-const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
+import LikeButton from '../LikeButton/LikeButton';
 
 const mapDispatchToProps = (dispatch) => ({
   favorite: (slug) => dispatch({
@@ -26,10 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const ArticleCard = ({ article, ...props }) => {
-  const favoriteButtonClass = article.favorited
-    ? FAVORITED_CLASS
-    : NOT_FAVORITED_CLASS;
-
   const handleClick = (ev) => {
     ev.preventDefault();
     if (article.favorited) {
@@ -68,21 +62,17 @@ const ArticleCard = ({ article, ...props }) => {
                 })}
             </span>
           </div>
-          {/* TODO: replace with LikeButton */}
-          <button
-            type="button"
-            className={favoriteButtonClass}
+          <LikeButton
+            count={article.favoritesCount}
+            isFavorited={article.favorited}
             onClick={handleClick}
-          >
-            <i className="ion-heart" />
-            {article.favoritesCount}
-          </button>
+          />
         </div>
 
         <div className={styles.preview}>
           <h1 className={styles.title}>
-            {article.title.length > 40
-              ? `${article.title.substring(0, 40)}...`
+            {article.title.length > 35
+              ? `${article.title.substring(0, 35)}...`
               : article.title}
           </h1>
           <p className={styles.text}>
