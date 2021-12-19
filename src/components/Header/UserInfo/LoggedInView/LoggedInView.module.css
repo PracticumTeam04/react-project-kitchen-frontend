@@ -1,0 +1,36 @@
+.main {
+  color: #fafafa !important;
+  text-decoration: none;
+}
+.link {
+  font-family: 'Golos', Arial, Helvetic, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  transition: 0.7s;
+  color: #0a0a0a;
+  text-decoration: none !important;
+}
+.link:hover {
+  opacity: 0.7;
+  color: #0a0a0a;
+}
+.main:hover {
+  color: #fafafa;
+}
+.navbar {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+.nav-item {
+  margin-right: 32px;
+  display: flex;
+  padding: 0;
+}
+.nav-item:last-child {
+  margin-right: 0;
+}
