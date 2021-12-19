@@ -49,7 +49,7 @@ class Home extends React.Component {
         <div className="container page">
 
           <div className="row">
-            <MainView />
+            <MainView onClickTag={this.props.onClickTag}/>
                 <TagsWidget
                   tags={this.props.tags}
                   onClickTag={this.props.onClickTag}

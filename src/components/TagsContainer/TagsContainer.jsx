@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import agent from '../../agent';
 import tagsStyle from './TagsContainer.module.css';
 
-const TagsContainer = ({ tags, onClickTag }) => {
-  const [isActive, setActive] = React.useState(null);
-  return tags.length > 0 ? (
+const mapStateToProps = (state) => ({
+  activeTag: state.articleList.tag,
+});
+
+const TagsContainer = ({ tags, onClickTag, activeTag }) => (
+  tags.length > 0 ? (
     <div className={tagsStyle.tagList}>
       {tags.map((tag) => {
         const handleClick = (ev) => {
@@ -15,7 +19,6 @@ const TagsContainer = ({ tags, onClickTag }) => {
             (page) => agent.Articles.byTag(tag, page),
             agent.Articles.byTag(tag),
           );
-          setActive(tag);
         };
         return (
           <button
@@ -23,7 +26,7 @@ const TagsContainer = ({ tags, onClickTag }) => {
             href=""
             value={tag}
             className={
-              isActive === tag ? tagsStyle.buttonActive : tagsStyle.button
+              activeTag === tag ? tagsStyle.buttonActive : tagsStyle.button
             }
             key={tag}
             onClick={handleClick}
@@ -33,10 +36,10 @@ const TagsContainer = ({ tags, onClickTag }) => {
         );
       })}
     </div>
-  ) : null;
-};
+  ) : null
+);
 
-export default TagsContainer;
+export default connect(mapStateToProps)(TagsContainer);
 
 TagsContainer.defaultProps = {
   tags: [],
@@ -45,4 +48,9 @@ TagsContainer.defaultProps = {
 TagsContainer.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   onClickTag: PropTypes.func.isRequired,
+  activeTag: PropTypes.string,
+};
+
+TagsContainer.defaultProps = {
+  activeTag: null,
 };

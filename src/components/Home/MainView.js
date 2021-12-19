@@ -96,6 +96,7 @@ const MainView = (props) => (
       loading={props.loading}
       articlesCount={props.articlesCount}
       currentPage={props.currentPage}
+      onClickTag={props.onClickTag}
     />
   </div>
 );
